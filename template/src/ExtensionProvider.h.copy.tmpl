@@ -1,0 +1,18 @@
+#ifndef AGORAMARKETPLACETEMPLATE_EXTENSIONPROVIDER_H
+#define AGORAMARKETPLACETEMPLATE_EXTENSIONPROVIDER_H
+
+#include "AgoraExtensionProviderEntry.h"
+#include "NGIAgoraExtensionProvider.h"
+
+class ExtensionProvider : public agora::rtc::IExtensionProviderV2 {
+public:
+    void setExtensionControl(agora::rtc::IExtensionControl *control) override;
+    void enumerateExtensions(ExtensionMetaInfo *extension_list, int &extension_count) override;
+    agora::agora_refptr<agora::rtc::IAudioFilter> createAudioFilter(const char *name) override;
+    agora::agora_refptr<agora::rtc::IExtensionVideoFilter> createVideoFilter(const char *name) override;
+    agora::agora_refptr<agora::rtc::IVideoSinkBase> createVideoSink(const char *name) override;
+    void setProperty(const char *key, const char *value) override;
+    void getExtensionVersion(const char *extension_name, agora::rtc::ExtensionVersion &version) override;
+};
+
+#endif//AGORAMARKETPLACETEMPLATE_EXTENSIONPROVIDER_H

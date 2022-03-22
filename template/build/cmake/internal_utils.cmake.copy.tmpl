@@ -1,0 +1,54 @@
+macro(config_compiler_and_linker)
+    # CMAKE_SYSTEM_NAME (Darwin、Linux、Windows、iOS、Android)
+    if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+        set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /DEBUG")
+        set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG")
+    else ()
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -g")
+    endif ()
+
+    # Set the build configuration
+    if (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+        set(CMAKE_XCODE_ATTRIBUTE_MACOSX_DEPLOYMENT_TARGET "10.13")
+        set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO")
+        set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO")
+        set(CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym")
+    elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fPIC")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -fPIC")
+    elseif (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+        if (MSVC)
+            add_compile_options(
+                    $<$<CONFIG:>:/MT> #---------|
+                    $<$<CONFIG:Debug>:/MTd> #---|-- Statically link the runtime libraries
+                    $<$<CONFIG:Release>:/MT> #--|
+            )
+        endif ()
+    endif ()
+endmacro()
+
+macro(config_libs_dir sdk_root)
+    if (APPLE)
+        set(LIBS_DIR "${sdk_root}/libs/ALL_ARCHITECTURE")
+        if (NOT IS_DIRECTORY "${LIBS_DIR}")
+            execute_process(
+                    COMMAND sh to-framework.sh "${sdk_root}"
+                    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/build/scripts"
+            )
+        endif ()
+        if (NOT IS_DIRECTORY "${LIBS_DIR}")
+            set(LIBS_DIR "${sdk_root}/libs")
+        endif ()
+        set(INCLUDE_DIR "${LIBS_DIR}/AgoraRtcKit.framework/Headers")
+    elseif (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+        if (CMAKE_SIZEOF_VOID_P MATCHES 8)
+            set(LIBS_DIR "${sdk_root}/x86_64/rtc/sdk")
+        else ()
+            set(LIBS_DIR "${sdk_root}/x86/rtc/sdk")
+        endif ()
+        set(INCLUDE_DIR "${LIBS_DIR}/low_level_api/include")
+    elseif (CMAKE_SYSTEM_NAME STREQUAL "Android")
+        set(LIBS_DIR "${sdk_root}/rtc/sdk/${ANDROID_ABI}")
+        set(INCLUDE_DIR "${sdk_root}/rtc/sdk/low_level_api/include")
+    endif ()
+endmacro()

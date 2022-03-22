@@ -1,0 +1,30 @@
+#include "ExtensionProvider.h"
+
+REGISTER_AGORA_EXTENSION_PROVIDER({{vendorName}}, ExtensionProvider, agora::rtc::IExtensionProviderV2)
+
+void ExtensionProvider::setExtensionControl(agora::rtc::IExtensionControl *control) {
+    IExtensionProvider::setExtensionControl(control);
+}
+
+void ExtensionProvider::enumerateExtensions(agora::rtc::IExtensionProvider::ExtensionMetaInfo *extension_list, int &extension_count) {
+    IExtensionProvider::enumerateExtensions(extension_list, extension_count);
+}
+
+agora::agora_refptr<agora::rtc::IAudioFilter> ExtensionProvider::createAudioFilter(const char *name) {
+    return IExtensionProvider::createAudioFilter(name);
+}
+
+agora::agora_refptr<agora::rtc::IExtensionVideoFilter> ExtensionProvider::createVideoFilter(const char *name) {
+    return IExtensionProvider::createVideoFilter(name);
+}
+
+agora::agora_refptr<agora::rtc::IVideoSinkBase> ExtensionProvider::createVideoSink(const char *name) {
+    return IExtensionProvider::createVideoSink(name);
+}
+
+void ExtensionProvider::setProperty(const char *key, const char *value) {
+    IExtensionProvider::setProperty(key, value);
+}
+
+void ExtensionProvider::getExtensionVersion(const char *extension_name, agora::rtc::ExtensionVersion &version) {
+}
