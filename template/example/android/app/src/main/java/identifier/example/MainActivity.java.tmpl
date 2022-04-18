@@ -1,0 +1,150 @@
+package {{identifier}}.example;
+
+import android.Manifest;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Arrays;
+
+import io.agora.rtc2.Constants;
+import io.agora.rtc2.IMediaExtensionObserver;
+import io.agora.rtc2.IRtcEngineEventHandler;
+import io.agora.rtc2.RtcEngine;
+import io.agora.rtc2.RtcEngineConfig;
+import io.agora.rtc2.video.VideoCanvas;
+import {{identifier}}.ExtensionManager;
+
+public class MainActivity extends AppCompatActivity implements IMediaExtensionObserver {
+    private static final String TAG = "MainActivity";
+    private static final String PROVIDER_NAME = "{{vendorName}}";
+    private static final String EXTENSION_NAME = "";
+
+    private RtcEngine mRtcEngine;
+    private boolean enable;
+    private Button buttonEnable;
+    private Button buttonInit;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initUI();
+        initData();
+        initPermission();
+    }
+
+    private void initData() {
+
+    }
+
+    private void initUI() {
+        buttonEnable = findViewById(R.id.button_enable);
+        buttonEnable.setOnClickListener(view -> enableExtension());
+        buttonInit = findViewById(R.id.button_init);
+        buttonInit.setOnClickListener(view -> {
+            initExtension();
+            view.setEnabled(false);
+        });
+    }
+
+    private void initExtension() {
+        setExtensionProperty("", "{}");
+    }
+
+    private void setExtensionProperty(String key, String property) {
+        mRtcEngine.setExtensionProperty(PROVIDER_NAME, EXTENSION_NAME, key, property);
+    }
+
+    private void initPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}, 0);
+        } else {
+            initRtcEngine();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0) {
+            if (Arrays.equals(grantResults, new int[]{0, 0})) {
+                initRtcEngine();
+            }
+        }
+    }
+
+    private void initRtcEngine() {
+        RtcEngineConfig config = new RtcEngineConfig();
+        config.mContext = getApplicationContext();
+        config.mAppId = KeyCenter.agoraAppID;
+        config.mEventHandler = new IRtcEngineEventHandler() {
+            @Override
+            public void onWarning(int warn) {
+                Log.w(TAG, String.format("onWarning %d", warn));
+            }
+
+            @Override
+            public void onError(int err) {
+                Log.e(TAG, String.format("onError %d", err));
+            }
+
+            @Override
+            public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
+                Log.i(TAG, String.format("onJoinChannelSuccess %s %d %d", channel, uid, elapsed));
+            }
+        };
+        try {
+            mRtcEngine = RtcEngine.create(config);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        if (mRtcEngine == null) {
+            return;
+        }
+        enableExtension();
+        mRtcEngine.enableVideo();
+        mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
+        mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER);
+        mRtcEngine.startPreview();
+        VideoCanvas canvas = new VideoCanvas(findViewById(R.id.surfaceView));
+        mRtcEngine.setupLocalVideo(canvas);
+    }
+
+    private void enableExtension() {
+        this.enable = !this.enable;
+        ExtensionManager.getInstance(mRtcEngine).initialize(this);
+        mRtcEngine.enableExtension(PROVIDER_NAME, EXTENSION_NAME, this.enable);
+        if (this.enable) {
+            this.buttonEnable.setText(R.string.disable_extension);
+        } else {
+            this.buttonEnable.setText(R.string.enable_extension);
+        }
+    }
+
+    @Override
+    public void onEvent(String s, String s1, String s2, String s3) {
+    }
+
+    @Override
+    public void onStarted(String s, String s1) {
+
+    }
+
+    @Override
+    public void onStopped(String s, String s1) {
+
+    }
+
+    @Override
+    public void onError(String s, String s1, int i, String s2) {
+
+    }
+}
