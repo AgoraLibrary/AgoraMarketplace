@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -ex
+
+shell_path=$(
+  cd "$(dirname "$0")" || exit
+  pwd
+)
+root_path="$shell_path/../../.."
+
+build() {
+  cd "$root_path" || exit
+  mkdir -p ./build/android/"$1"
+  cd ./build/android/"$1" || exit
+  cmake \
+    -G "Ninja" \
+    -DANDROID_ABI="$1" \
+    -DANDROID_NDK="$ANDROID_NDK" \
+    -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK"/build/cmake/android.toolchain.cmake \
+    -DANDROID_TOOLCHAIN=clang \
+    -DANDROID_PLATFORM=android-16 \
+    -DCMAKE_BUILD_TYPE="$2" \
+    "$root_path"
+  cmake --build . --config "$2"
+}
+
+if [ "$1" = "build" ]; then
+  build "$2" "$3"
+else
+  echo "start build Release ----------"
+  pushd "$root_path/build/android"
+  ./gradlew assembleRelease
+  mkdir -p "$root_path/build/android/ALL_ARCHITECTURE/output/Release"
+  cp "$root_path/src/android/build/outputs/aar/{{projectName}}-release.aar" "$root_path/build/android/ALL_ARCHITECTURE/output/Release"
+  popd
+fi

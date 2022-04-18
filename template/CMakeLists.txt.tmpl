@@ -17,6 +17,7 @@ download_sdk("4.0.0.preview.6" "full" ${SDK_DOWNLOAD_DIR}) # SDK_ROOT
 message(STATUS "SDK_ROOT " ${SDK_ROOT})
 config_libs_dir(${SDK_ROOT}) # LIBS_DIR
 message(STATUS "LIBS_DIR " ${LIBS_DIR})
+link_directories(${LIBS_DIR})
 
 ## Start setting the dynamic library
 
@@ -51,18 +52,17 @@ if (APPLE)
     set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
             FRAMEWORK TRUE
             FRAMEWORK_VERSION A
-            MACOSX_FRAMEWORK_IDENTIFIER io.agora.rte.extension
+            MACOSX_FRAMEWORK_IDENTIFIER {{identifier}}
             MACOSX_FRAMEWORK_SHORT_VERSION_STRING "${SDK_VERSION}"
             MACOSX_FRAMEWORK_BUNDLE_VERSION "${SDK_VERSION}"
             CXX_VISIBILITY_PRESET hidden
             LINK_FLAGS "-Wl -F ${LIBS_DIR}"
             )
     target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
-            -framework AgoraRtcKit
+            "-framework AgoraRtcKit"
             )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Android")
-    link_directories(${LIBS_DIR})
     target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
-            ${agora-rtc-sdk-jni}
+            libagora-rtc-sdk-jni.so
             )
 endif ()

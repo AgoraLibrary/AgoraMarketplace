@@ -173,7 +173,8 @@ class Template {
       }
 
       final String? projectName = context['projectName'] as String?;
-      final String? androidIdentifier = context['androidIdentifier'] as String?;
+      final String? vendorName = context['vendorName'] as String?;
+      final String? identifier = context['identifier'] as String?;
       final String? pluginClassSnakeCase =
           context['pluginClassSnakeCase'] as String?;
       final String destinationDirPath = destination.absolute.path;
@@ -183,10 +184,13 @@ class Template {
           .replaceAll(copyTemplateExtension, '')
           .replaceAll(templateExtension, '');
 
-      if (android != null && android && androidIdentifier != null) {
+      if (android && identifier != null) {
         finalDestinationPath = finalDestinationPath.replaceAll(
-            'androidIdentifier',
-            androidIdentifier.replaceAll('.', pathSeparator));
+            'identifier', identifier.replaceAll('.', pathSeparator));
+      }
+      if (vendorName != null) {
+        finalDestinationPath =
+            finalDestinationPath.replaceAll('vendorName', vendorName);
       }
       if (projectName != null) {
         finalDestinationPath =
@@ -283,7 +287,7 @@ void main(List<String> arguments) {
     {
       "android": true,
       "ios": true,
-      "androidIdentifier": "io.agora.rte.extension.yitu",
+      "identifier": "io.agora.rte.extension.yitu",
       "projectName": "YituExtension",
       "extensionName": "YituExtension",
       "vendorName": "Yitu",

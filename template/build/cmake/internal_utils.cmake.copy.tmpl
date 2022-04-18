@@ -9,9 +9,6 @@ macro(config_compiler_and_linker)
 
     # Set the build configuration
     if (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-        set(CMAKE_XCODE_ATTRIBUTE_MACOSX_DEPLOYMENT_TARGET "10.13")
-        set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO")
-        set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO")
         set(CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym")
     elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fPIC")
@@ -29,15 +26,14 @@ endmacro()
 
 macro(config_libs_dir sdk_root)
     if (APPLE)
-        set(LIBS_DIR "${sdk_root}/libs/ALL_ARCHITECTURE")
-        if (NOT IS_DIRECTORY "${LIBS_DIR}")
-            execute_process(
-                    COMMAND sh to-framework.sh "${sdk_root}"
-                    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/build/scripts"
-            )
-        endif ()
-        if (NOT IS_DIRECTORY "${LIBS_DIR}")
-            set(LIBS_DIR "${sdk_root}/libs")
+        set(LIBS_DIR "${sdk_root}/libs")
+        if (IS_DIRECTORY "${LIBS_DIR}/AgoraRtcKit.xcframework")
+            if (PLATFORM MATCHES "^SIMULATOR.*$")
+                #set(LIBS_DIR "${LIBS_DIR}/AgoraRtcKit.xcframework/ios-arm64_x86_64-simulator")
+                set(LIBS_DIR "${LIBS_DIR}/AgoraRtcKit.xcframework/ios-x86_64-simulator")
+            else ()
+                set(LIBS_DIR "${LIBS_DIR}/AgoraRtcKit.xcframework/ios-arm64_armv7")
+            endif ()
         endif ()
         set(INCLUDE_DIR "${LIBS_DIR}/AgoraRtcKit.framework/Headers")
     elseif (CMAKE_SYSTEM_NAME STREQUAL "Windows")
