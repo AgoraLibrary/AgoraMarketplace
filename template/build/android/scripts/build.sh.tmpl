@@ -28,9 +28,9 @@ if [ "$1" = "build" ]; then
   build "$2" "$3"
 else
   echo "start build Release ----------"
-  pushd "$root_path/build/android"
+  pushd "$root_path/src/android"
   ./gradlew assembleRelease
   mkdir -p "$root_path/build/android/ALL_ARCHITECTURE/output/Release"
-  cp "$root_path/src/android/build/outputs/aar/{{projectName}}-release.aar" "$root_path/build/android/ALL_ARCHITECTURE/output/Release"
+  cp "build/outputs/aar/android-release.aar" "$root_path/build/android/ALL_ARCHITECTURE/output/Release/{{projectName}}-release.aar"
   popd
 fi
