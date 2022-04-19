@@ -4,8 +4,7 @@ import 'package:tool/src/base/platform.dart';
 import 'package:tool/src/template/template_render/mustache_template.dart';
 import 'package:tool/src/template/template_render/template.dart';
 
-String marketplaceRoot = platform.environment["AGORA_MARKETPLACE_ROOT"] ??
-    fs.directory(platform.script.path).parent.parent.path;
+String marketplaceRoot = platform.environment["AGORA_MARKETPLACE_ROOT"] ?? '';
 
 /// Currently active implementation of the file system.
 ///

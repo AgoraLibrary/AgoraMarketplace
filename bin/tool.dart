@@ -4,7 +4,6 @@ import 'package:tool/src/commands/create/create_command.dart';
 
 void main(List<String> arguments) {
   Command command = CreateCommand();
-
   switch (arguments[0]) {
     case 'create':
       command = CreateCommand();
@@ -13,6 +12,5 @@ void main(List<String> arguments) {
       command = BuildCommand();
       break;
   }
-
   command.run(List.of(arguments.skip(1)));
 }
