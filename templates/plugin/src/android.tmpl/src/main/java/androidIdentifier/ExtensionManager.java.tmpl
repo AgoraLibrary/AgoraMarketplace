@@ -1,0 +1,32 @@
+package {{androidIdentifier}};
+
+import android.content.Context;
+
+import io.agora.rtc2.RtcEngine;
+
+public class ExtensionManager {
+    public static final String PROVIDER_NAME = "{{projectName}}";
+
+    static {
+        System.loadLibrary(PROVIDER_NAME);
+    }
+
+    private static ExtensionManager instance;
+    private RtcEngine mRtcEngine;
+    private boolean isInit;
+
+    private ExtensionManager() {
+    }
+
+    public static synchronized ExtensionManager getInstance(RtcEngine rtcEngine) {
+        if (instance == null) {
+            instance = new ExtensionManager();
+        }
+        instance.mRtcEngine = rtcEngine;
+        return instance;
+    }
+
+    public void initialize(Context context) {
+        isInit = true;
+    }
+}
