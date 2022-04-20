@@ -1,30 +1,40 @@
 #include "ExtensionProvider.h"
+#include "AudioFilter.h"
+#include "VideoFilter.h"
+#include "VideoSink.h"
 
-REGISTER_AGORA_EXTENSION_PROVIDER({{projectName}}, ExtensionProvider, agora::rtc::IExtensionProviderV2)
+REGISTER_AGORA_EXTENSION_PROVIDER({{projectName}}, {{pluginClassSnakeCase}}::ExtensionProvider, agora::rtc::IExtensionProviderV2)
 
-void ExtensionProvider::setExtensionControl(agora::rtc::IExtensionControl *control) {
-    IExtensionProvider::setExtensionControl(control);
-}
+namespace {{pluginClassSnakeCase}} {
+    void ExtensionProvider::setExtensionControl(agora::rtc::IExtensionControl *control) {
+        IExtensionProvider::setExtensionControl(control);
+    }
 
-void ExtensionProvider::enumerateExtensions(agora::rtc::IExtensionProvider::ExtensionMetaInfo *extension_list, int &extension_count) {
-    IExtensionProvider::enumerateExtensions(extension_list, extension_count);
-}
+    void ExtensionProvider::enumerateExtensions(agora::rtc::IExtensionProvider::ExtensionMetaInfo *extension_list, int &extension_count) {
+        extension_count = 0;
 
-agora::agora_refptr<agora::rtc::IAudioFilter> ExtensionProvider::createAudioFilter(const char *name) {
-    return IExtensionProvider::createAudioFilter(name);
-}
+        ExtensionMetaInfo info{};
+        info.extension_name = "";
+        info.type = EXTENSION_TYPE::AUDIO_FILTER;
+        extension_list[extension_count++] = info;
+    }
 
-agora::agora_refptr<agora::rtc::IExtensionVideoFilter> ExtensionProvider::createVideoFilter(const char *name) {
-    return IExtensionProvider::createVideoFilter(name);
-}
+    agora::agora_refptr<agora::rtc::IAudioFilter> ExtensionProvider::createAudioFilter(const char *name) {
+        return new agora::RefCountedObject<AudioFilter>(name);
+    }
 
-agora::agora_refptr<agora::rtc::IVideoSinkBase> ExtensionProvider::createVideoSink(const char *name) {
-    return IExtensionProvider::createVideoSink(name);
-}
+    agora::agora_refptr<agora::rtc::IExtensionVideoFilter> ExtensionProvider::createVideoFilter(const char *name) {
+        return new agora::RefCountedObject<VideoFilter>(name);
+    }
 
-void ExtensionProvider::setProperty(const char *key, const char *value) {
-    IExtensionProvider::setProperty(key, value);
-}
+    agora::agora_refptr<agora::rtc::IVideoSinkBase> ExtensionProvider::createVideoSink(const char *name) {
+        return new agora::RefCountedObject<VideoSink>(name);
+    }
 
-void ExtensionProvider::getExtensionVersion(const char *extension_name, agora::rtc::ExtensionVersion &version) {
-}
+    void ExtensionProvider::setProperty(const char *key, const char *value) {
+        IExtensionProvider::setProperty(key, value);
+    }
+
+    void ExtensionProvider::getExtensionVersion(const char *extension_name, agora::rtc::ExtensionVersion &version) {
+    }
+}// namespace {{pluginClassSnakeCase}}

@@ -1,0 +1,62 @@
+#include "VideoFilter.h"
+
+namespace {{pluginClassSnakeCase}} {
+    VideoFilter::VideoFilter(const std::string &name) : name_(name) {}
+
+    VideoFilter::~VideoFilter() {
+    }
+
+    void VideoFilter::setEnabled(bool enable) {
+        IVideoFilter::setEnabled(enable);
+    }
+
+    bool VideoFilter::isEnabled() {
+        return IVideoFilter::isEnabled();
+    }
+
+    int VideoFilter::setProperty(const char *key, const void *buf, size_t buf_size) {
+        return IVideoFilter::setProperty(key, buf, buf_size);
+    }
+
+    int VideoFilter::getProperty(const char *key, void *buf, size_t buf_size) {
+        return IVideoFilter::getProperty(key, buf, buf_size);
+    }
+
+    bool VideoFilter::onDataStreamWillStart() {
+        return IVideoFilter::onDataStreamWillStart();
+    }
+
+    void VideoFilter::onDataStreamWillStop() {
+        IVideoFilter::onDataStreamWillStop();
+    }
+
+    void VideoFilter::getProcessMode(agora::rtc::IExtensionVideoFilter::ProcessMode &mode, bool &independent_thread) {
+    }
+
+    int VideoFilter::start(agora::agora_refptr<Control> control) {
+        return 0;
+    }
+
+    int VideoFilter::stop() {
+        return 0;
+    }
+
+    void VideoFilter::getVideoFormatWanted(agora::rtc::VideoFrameData::Type &type, agora::rtc::RawPixelBuffer::Format &format) {
+    }
+
+    agora::rtc::IExtensionVideoFilter::ProcessResult VideoFilter::pendVideoFrame(agora::agora_refptr<agora::rtc::IVideoFrame> frame) {
+        return IExtensionVideoFilter::pendVideoFrame(frame);
+    }
+
+    agora::rtc::IExtensionVideoFilter::ProcessResult VideoFilter::adaptVideoFrame(agora::agora_refptr<agora::rtc::IVideoFrame> in, agora::agora_refptr<agora::rtc::IVideoFrame> &out) {
+        return IExtensionVideoFilter::adaptVideoFrame(in, out);
+    }
+
+    bool VideoFilter::getRotationApplied() {
+        return IExtensionVideoFilter::getRotationApplied();
+    }
+
+    bool VideoFilter::adaptVideoFrame(const agora::media::base::VideoFrame &capturedFrame, agora::media::base::VideoFrame &adaptedFrame) {
+        return IExtensionVideoFilter::adaptVideoFrame(capturedFrame, adaptedFrame);
+    }
+}// namespace {{pluginClassSnakeCase}}

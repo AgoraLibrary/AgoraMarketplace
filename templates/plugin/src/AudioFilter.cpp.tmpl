@@ -1,0 +1,39 @@
+#include "AudioFilter.h"
+
+namespace {{pluginClassSnakeCase}} {
+    AudioFilter::AudioFilter(const std::string &name) : name_(name) {}
+
+    AudioFilter::~AudioFilter() {
+    }
+
+    bool AudioFilter::adaptAudioFrame(const agora::media::base::AudioPcmFrame &inAudioFrame, agora::media::base::AudioPcmFrame &adaptedFrame) {
+        return false;
+    }
+
+    void AudioFilter::setEnabled(bool enable) {
+    }
+
+    bool AudioFilter::isEnabled() const {
+        return false;
+    }
+
+    int AudioFilter::setProperty(const char *key, const void *buf, int buf_size) {
+        return 0;
+    }
+
+    int AudioFilter::getProperty(const char *key, void *buf, int buf_size) const {
+        return 0;
+    }
+
+    const char *AudioFilter::getName() const {
+        return nullptr;
+    }
+
+    int AudioFilter::getPreferredSampleRate() {
+        return IAudioFilter::getPreferredSampleRate();
+    }
+
+    int AudioFilter::getPreferredChannelNumbers() {
+        return IAudioFilter::getPreferredChannelNumbers();
+    }
+}// namespace {{pluginClassSnakeCase}}

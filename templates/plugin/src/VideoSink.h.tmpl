@@ -1,0 +1,31 @@
+#pragma once
+
+#include "NGIAgoraMediaNode.h"
+#include <string>
+
+namespace {{pluginClassSnakeCase}} {
+    class VideoSink : public agora::rtc::IVideoSinkBase {
+    public:
+        explicit VideoSink(const std::string &name);
+        ~VideoSink() override;
+
+        int setProperty(const char *key, const void *buf, int buf_size) override;
+
+        int getProperty(const char *key, void *buf, int buf_size) override;
+
+        int onFrame(const agora::media::base::VideoFrame &videoFrame) override;
+
+        bool isExternalSink() override;
+
+        bool onDataStreamWillStart() override;
+
+        void onDataStreamWillStop() override;
+
+        bool applyMirror() override;
+
+        bool applyRotation() override;
+
+    private:
+        std::string name_;
+    };
+}// namespace {{pluginClassSnakeCase}}

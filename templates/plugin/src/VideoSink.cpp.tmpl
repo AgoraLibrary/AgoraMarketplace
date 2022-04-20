@@ -1,0 +1,40 @@
+#include "VideoSink.h"
+
+namespace {{pluginClassSnakeCase}} {
+    VideoSink::VideoSink(const std::string &name) : name_(name) {}
+
+    VideoSink::~VideoSink() {
+    }
+
+    int VideoSink::setProperty(const char *key, const void *buf, int buf_size) {
+        return IVideoSinkBase::setProperty(key, buf, buf_size);
+    }
+
+    int VideoSink::getProperty(const char *key, void *buf, int buf_size) {
+        return IVideoSinkBase::getProperty(key, buf, buf_size);
+    }
+
+    int VideoSink::onFrame(const agora::media::base::VideoFrame &videoFrame) {
+        return 0;
+    }
+
+    bool VideoSink::isExternalSink() {
+        return IVideoSinkBase::isExternalSink();
+    }
+
+    bool VideoSink::onDataStreamWillStart() {
+        return IVideoSinkBase::onDataStreamWillStart();
+    }
+
+    void VideoSink::onDataStreamWillStop() {
+        IVideoSinkBase::onDataStreamWillStop();
+    }
+
+    bool VideoSink::applyMirror() {
+        return IVideoSinkBase::applyMirror();
+    }
+
+    bool VideoSink::applyRotation() {
+        return IVideoSinkBase::applyRotation();
+    }
+}// namespace {{pluginClassSnakeCase}}

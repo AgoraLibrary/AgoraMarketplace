@@ -1,0 +1,31 @@
+#pragma once
+
+#include "NGIAgoraMediaNode.h"
+#include <string>
+
+namespace {{pluginClassSnakeCase}} {
+    class AudioFilter : public agora::rtc::IAudioFilter {
+    public:
+        explicit AudioFilter(const std::string &name);
+        ~AudioFilter() override;
+
+        bool adaptAudioFrame(const agora::media::base::AudioPcmFrame &inAudioFrame, agora::media::base::AudioPcmFrame &adaptedFrame) override;
+
+        void setEnabled(bool enable) override;
+
+        bool isEnabled() const override;
+
+        int setProperty(const char *key, const void *buf, int buf_size) override;
+
+        int getProperty(const char *key, void *buf, int buf_size) const override;
+
+        const char *getName() const override;
+
+        int getPreferredSampleRate() override;
+
+        int getPreferredChannelNumbers() override;
+
+    private:
+        std::string name_;
+    };
+}// namespace {{pluginClassSnakeCase}}

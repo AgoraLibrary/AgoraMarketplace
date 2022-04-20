@@ -1,0 +1,43 @@
+#pragma once
+
+#include "NGIAgoraMediaNode.h"
+#include <string>
+
+namespace {{pluginClassSnakeCase}} {
+    class VideoFilter : public agora::rtc::IExtensionVideoFilter {
+    public:
+        explicit VideoFilter(const std::string &name);
+        ~VideoFilter() override;
+
+        void setEnabled(bool enable) override;
+
+        bool isEnabled() override;
+
+        int setProperty(const char *key, const void *buf, size_t buf_size) override;
+
+        int getProperty(const char *key, void *buf, size_t buf_size) override;
+
+        bool onDataStreamWillStart() override;
+
+        void onDataStreamWillStop() override;
+
+        void getProcessMode(ProcessMode &mode, bool &independent_thread) override;
+
+        int start(agora::agora_refptr<Control> control) override;
+
+        int stop() override;
+
+        void getVideoFormatWanted(agora::rtc::VideoFrameData::Type &type, agora::rtc::RawPixelBuffer::Format &format) override;
+
+        ProcessResult pendVideoFrame(agora::agora_refptr<agora::rtc::IVideoFrame> frame) override;
+
+        ProcessResult adaptVideoFrame(agora::agora_refptr<agora::rtc::IVideoFrame> in, agora::agora_refptr<agora::rtc::IVideoFrame> &out) override;
+
+        bool getRotationApplied() override;
+
+        bool adaptVideoFrame(const agora::media::base::VideoFrame &capturedFrame, agora::media::base::VideoFrame &adaptedFrame) override;
+
+    private:
+        std::string name_;
+    };
+}// namespace {{pluginClassSnakeCase}}
