@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -ex
+
+shell_path=$(
+  cd "$(dirname "$0")" || exit
+  pwd
+)
+root_path="$shell_path/../../.."
+
+build() {
+  pushd "$root_path/example/ios"
+  xcrun xcodebuild -exportArchive \
+    -archivePath "{{projectName}}.xcarchive" \
+    -exportPath "{{projectName}}.ipa" \
+    -exportOptionsPlist "$1"
+  popd
+}
+
+pushd "$root_path/build/ios/scripts"
+sh build-app.sh
+popd
+
+build "$1"

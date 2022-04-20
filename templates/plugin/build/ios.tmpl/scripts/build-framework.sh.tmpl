@@ -15,7 +15,7 @@ build() {
   if [ "$1" = "OS64COMBINED" ]; then
     archs="armv7 arm64"
   elif [ "$1" = "SIMULATOR64" ]; then
-    #archs="arm64 x86_64"
+    #TODO archs="arm64 x86_64"
     archs="x86_64"
   fi
   cmake \

@@ -9,6 +9,7 @@ part of 'build_command_options.dart';
 BuildCommandOptions _$parseBuildCommandOptionsResult(ArgResults result) =>
     BuildCommandOptions(
       result['target'] as String?,
+      result['export-options-plist'] as String?,
       result['verbose'] as bool?,
       result['format'] as String?,
       result['help'] as bool,
@@ -18,15 +19,19 @@ ArgParser _$populateBuildCommandOptionsParser(ArgParser parser) => parser
   ..addOption(
     'target',
     abbr: 't',
-    allowed: ['aar', 'apk', 'ios', 'ios-framework', 'ipa'],
+    allowed: ['aar', 'apk', 'framework', 'app', 'ipa'],
     allowedHelp: <String, String>{
       'aar': 'Build a repository containing an AAR and a POM file.',
       'apk': 'Build an Android APK file from your app.',
-      'ios': 'Build an iOS application bundle (Mac OS X host only).',
-      'ios-framework':
+      'framework':
           'Produces .xcframeworks for a Flutter project and its plugins for integration into existing, plain Xcode projects.',
       'ipa': 'Build an iOS archive bundle (Mac OS X host only).'
     },
+  )
+  ..addOption(
+    'export-options-plist',
+    help:
+        'Optionally export an IPA with these options. See "xcodebuild -h" for available exportOptionsPlist keys.',
   )
   ..addFlag(
     'verbose',

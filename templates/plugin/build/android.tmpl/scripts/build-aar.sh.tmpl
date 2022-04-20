@@ -31,6 +31,6 @@ else
   pushd "$root_path/src/android"
   ./gradlew assembleRelease
   mkdir -p "$root_path/build/android/ALL_ARCHITECTURE/output/Release"
-  cp "build/outputs/aar/android-release.aar" "$root_path/build/android/ALL_ARCHITECTURE/output/Release/{{projectName}}-release.aar"
+  cp "build/outputs/aar/android-release.aar" "$root_path/build/android/ALL_ARCHITECTURE/output/Release/{{projectName}}.aar"
   popd
 fi

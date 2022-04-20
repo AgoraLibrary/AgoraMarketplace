@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -ex
+
+shell_path=$(
+  cd "$(dirname "$0")" || exit
+  pwd
+)
+root_path="$shell_path/../../.."
+
+build() {
+  pushd "$root_path/example/ios"
+  pod install
+  xcrun xcodebuild clean archive \
+    -configuration "$1" \
+    -workspace ExtensionExample.xcworkspace \
+    -scheme ExtensionExample \
+    -archivePath "{{projectName}}" \
+    build
+  popd
+}
+
+if [ "$1" = "build" ]; then
+  build "$2" "$3"
+else
+  echo "start build Release ----------"
+  build Release
+fi

@@ -42,10 +42,10 @@ class BuildCommand extends Command<BuildCommandOptions> {
       case 'apk':
         platform = 'android';
         break;
-      case 'ios':
+      case 'framework':
         platform = 'ios';
         break;
-      case 'ios-framework':
+      case 'app':
         platform = 'ios';
         break;
       case 'ipa':
@@ -53,8 +53,8 @@ class BuildCommand extends Command<BuildCommandOptions> {
         break;
     }
 
-    var executable =
-        globals.fs.path.join('build', platform, 'scripts', 'build.sh');
+    var executable = globals.fs.path.join('build', platform, 'scripts',
+        'build-${commandOptions.target}.${globals.platform.isWindows ? 'bat' : 'sh'}');
     await cmd.runExecutableArguments('sh', [executable], verbose: true);
   }
 }
