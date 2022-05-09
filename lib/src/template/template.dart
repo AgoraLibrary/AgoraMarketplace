@@ -124,7 +124,7 @@ class Template {
       destination.createSync(recursive: true);
     } on FileSystemException catch (err) {
       log(err.toString());
-      throw 'Failed to flutter create at ${destination.path}.';
+      throw 'Failed to amtool create at ${destination.path}.';
     }
     int fileCount = 0;
 

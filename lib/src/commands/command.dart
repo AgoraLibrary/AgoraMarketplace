@@ -78,7 +78,7 @@ abstract class Command<T extends CommandOptions> extends BaseCommand<void> {
         );
     final String help = <String>[
       if (deprecated)
-        'Deprecated. This command will be removed in a future version of Flutter.',
+        'Deprecated. This command will be removed in a future version of AgoraMarketplace.',
       description,
       '',
       'Global options:',

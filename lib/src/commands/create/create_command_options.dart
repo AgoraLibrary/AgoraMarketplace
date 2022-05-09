@@ -3,6 +3,15 @@ import 'package:tool/src/commands/command.dart';
 
 part 'create_command_options.g.dart';
 
+const List<String> _kAvailablePlatforms = <String>[
+  'ios',
+  'android',
+  'windows',
+  'linux',
+  'macos',
+  'web',
+];
+
 /// The command line options for this app
 @CliOptions()
 class CreateCommandOptions extends CommandOptions {
@@ -13,9 +22,9 @@ class CreateCommandOptions extends CommandOptions {
   final bool overwrite;
 
   @CliOption(
-    defaultsTo: 'A new Flutter project.',
+    defaultsTo: 'A new AgoraMarketplace project.',
     help:
-        'The description to use for your new Flutter project. This string ends up in the pubspec.yaml file.',
+        'The description to use for your new AgoraMarketplace project. This string ends up in the pubspec.yaml file.',
   )
   final String description;
 
@@ -23,7 +32,7 @@ class CreateCommandOptions extends CommandOptions {
     name: 'org',
     defaultsTo: 'com.example',
     help:
-        'The organization responsible for your new Flutter project, in reverse domain name notation. This string is'
+        'The organization responsible for your new AgoraMarketplace project, in reverse domain name notation. This string is'
         'used in Java package names and as prefix in the iOS bundle identifier.',
   )
   final String organization;
@@ -31,7 +40,7 @@ class CreateCommandOptions extends CommandOptions {
   @CliOption(
     name: 'project-name',
     help:
-        'The project name for this new Flutter project. This must be a valid dart package name.',
+        'The project name for this new AgoraMarketplace project. This must be a valid dart package name.',
   )
   final String? projectName;
 
@@ -41,6 +50,8 @@ class CreateCommandOptions extends CommandOptions {
         'project. This argument only works when "--template" is set to app or plugin. When adding platforms to a'
         'plugin project, the pubspec.yaml will be updated with the requested platform. Adding desktop platforms'
         'requires the corresponding desktop config setting to be enabled.',
+    allowed: _kAvailablePlatforms,
+    defaultsTo: ["android", "ios"],
   )
   final List<String>? platforms;
 

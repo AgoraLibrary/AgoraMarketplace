@@ -24,7 +24,7 @@ ArgParser _$populateBuildCommandOptionsParser(ArgParser parser) => parser
       'aar': 'Build a repository containing an AAR and a POM file.',
       'apk': 'Build an Android APK file from your app.',
       'framework':
-          'Produces .xcframeworks for a Flutter project and its plugins for integration into existing, plain Xcode projects.',
+          'Produces .xcframeworks for a AgoraMarketplace project and its plugins for integration into existing, plain Xcode projects.',
       'ipa': 'Build an iOS archive bundle (Mac OS X host only).'
     },
   )

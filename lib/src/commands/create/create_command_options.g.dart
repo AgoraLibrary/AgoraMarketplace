@@ -26,24 +26,26 @@ ArgParser _$populateCreateCommandOptionsParser(ArgParser parser) => parser
   ..addOption(
     'description',
     help:
-        'The description to use for your new Flutter project. This string ends up in the pubspec.yaml file.',
-    defaultsTo: 'A new Flutter project.',
+        'The description to use for your new AgoraMarketplace project. This string ends up in the pubspec.yaml file.',
+    defaultsTo: 'A new AgoraMarketplace project.',
   )
   ..addOption(
     'org',
     help:
-        'The organization responsible for your new Flutter project, in reverse domain name notation. This string isused in Java package names and as prefix in the iOS bundle identifier.',
+        'The organization responsible for your new AgoraMarketplace project, in reverse domain name notation. This string isused in Java package names and as prefix in the iOS bundle identifier.',
     defaultsTo: 'com.example',
   )
   ..addOption(
     'project-name',
     help:
-        'The project name for this new Flutter project. This must be a valid dart package name.',
+        'The project name for this new AgoraMarketplace project. This must be a valid dart package name.',
   )
   ..addMultiOption(
     'platforms',
     help:
         'The platforms supported by this project. Platform folders (e.g. android/) will be generated in the targetproject. This argument only works when "--template" is set to app or plugin. When adding platforms to aplugin project, the pubspec.yaml will be updated with the requested platform. Adding desktop platformsrequires the corresponding desktop config setting to be enabled.',
+    defaultsTo: ['android', 'ios'],
+    allowed: ['ios', 'android', 'windows', 'linux', 'macos', 'web'],
   )
   ..addFlag(
     'verbose',
