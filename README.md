@@ -17,27 +17,20 @@ requirements:
 
 ### Windows
 
-## Get the AgoraMarketplace {#get-sdk}
+## Get the AgoraMarketplace SDK
 
-1. Download the following installation bundle to get the latest {{site.sdk.channel}} release of the
-   AgoraMarketplace SDK:
+1. Download the following installation bundle to get the latest release of the AgoraMarketplace SDK:
 
-   [(loading...)](#){:.download-latest-link-{{os}}.btn.btn-primary}
+   [The latest version](https://github.com/AgoraLibrary/AgoraMarketplace/releases/latest)
 
-   For other release channels, and older builds, see the [SDK releases][] page.
+   For other release channels, and older builds, see
+   the [SDK releases](https://github.com/AgoraLibrary/AgoraMarketplace/releases) page.
 
 1. Extract the file in the desired location, for example:
 
-   {% comment %} Our JS also updates the filename in this template, but it doesn't include the
-   terminal formatting:
-
-   {% prettify shell %} $ cd ~/development $ unzip ~/Downloads/[[download-latest-link-filename]]
-   flutter_{{os}}_vX.X.X-{{site.sdk.channel}}.zip[[/end]]
-   {% endprettify %} {% endcomment -%}
-
    ```terminal
    $ cd ~/development
-   $ unzip ~/Downloads/flutter_{{os}}_vX.X.X-{{site.sdk.channel}}.zip
+   $ unzip ~/Downloads/amtool_vX.X.X.zip
    ```
 
 1. Add the `AgoraMarketplace` tool to your path:
@@ -53,8 +46,16 @@ requirements:
 
 You are now ready to run AgoraMarketplace commands!
 
-{{site.alert.note}} To update an existing version of AgoraMarketplace, see
-[Upgrading AgoraMarketplace][]. {{site.alert.end}}
+### Downloading straight from GitHub instead of using an archive
+
+_This is only suggested for advanced use cases._
+
+You can also use git directly instead of downloading the prepared archive. For example, to download
+the stable branch:
+
+```terminal
+$ git clone https://github.com/flutter/flutter.git -b stable
+```
 
 ### Update your path
 
@@ -97,54 +98,6 @@ Typically you add a line to a file that is executed whenever you open a new wind
 macOS supports developing AgoraMarketplace extensions in iOS, Android. Complete at least one of the
 platform setup steps now, to be able to build and run your first AgoraMarketplace extension.
 
-## Android setup
-
-{{site.alert.note}} AgoraMarketplace relies on a full installation of Android Studio to supply its
-Android platform dependencies. However, you can write your AgoraMarketplace extensions in a number
-of editors; a later step discusses that. {{site.alert.end}}
-
-### Install Android Studio
-
-1. Download and install [Android Studio](https://developer.android.com/studio).
-1. Start Android Studio, and go through the 'Android Studio Setup Wizard'. This installs the latest
-   Android SDK, Android SDK Command-line Tools, and Android SDK Build-Tools, which are required by
-   AgoraMarketplace when developing for Android.
-
-### Set up your Android device
-
-To prepare to run and test your AgoraMarketplace extension on an Android device, you need an Android
-device running Android 4.1 (API level 16) or higher.
-
-1. Enable **Developer options** and **USB debugging** on your device. Detailed instructions are
-   available in the
-   [Android documentation](https://developer.android.com/studio/debug/dev-options).
-1. Windows-only: Install the [Google USB Driver](https://developer.android.com/studio/run/win-usb).
-1. Using a USB cable, plug your phone into your computer. If prompted on your device, authorize your
-   computer to access your device.
-
-### Create and run a simple AgoraMarketplace extension
-
-To create your first AgoraMarketplace extension and test your setup, follow these steps:
-
-1. Create a new AgoraMarketplace extension by running the following from the command line:
-
-   ```terminal
-   $ amtool create my_extension
-   ```
-
-2. A `my_extension` directory is created, containing AgoraMarketplace's demo app. Enter this
-   directory:
-
-   ```terminal
-   $ cd my_extension
-   ```
-
-3. To compile the extension in the Simulator, enter:
-
-   ```terminal
-   $ amtool build -t aar
-   ```
-
 ## iOS setup
 
 ### Install Xcode
@@ -175,6 +128,26 @@ likely not to work.
 
 With Xcode, you’ll be able to run AgoraMarketplace extensions on an iOS device or on the simulator.
 
+### Set up the iOS simulator
+
+To prepare to run and test your AgoraMarketplace extension on the iOS simulator, follow these steps:
+
+1. On your Mac, find the Simulator via Spotlight or by using the following command:
+
+   ```terminal
+   $ open -a Simulator
+   ```
+
+2. Make sure your simulator is using a 64-bit device
+   (iPhone 5s or later). You can check the device by viewing the settings in the simulator's **
+   Hardware > Device** or **File > Open Simulator** menus.
+3. Depending on your development machine's screen size, simulated high-screen-density iOS devices
+   might overflow your screen. Grab the corner of the simulator and drag it to change the scale. You
+   can also use the **Window > Physical Size** or **Window > Pixel Accurate**
+   options if your computer's resolution is high enough.
+    * If you are using a version of Xcode older than 9.1, you should instead set the device scale in
+      the **Window > Scale** menu.
+
 ### Create and run a simple AgoraMarketplace extension
 
 To create your first AgoraMarketplace extension and test your setup, follow these steps:
@@ -185,14 +158,14 @@ To create your first AgoraMarketplace extension and test your setup, follow thes
    $ amtool create my_extension
    ```
 
-2. A `my_extension` directory is created, containing AgoraMarketplace's demo app. Enter this
+2. A `my_extension` directory is created, containing AgoraMarketplace's starter app. Enter this
    directory:
 
    ```terminal
    $ cd my_extension
    ```
 
-3. To compile the extension in the Simulator, enter:
+3. To compile the extension, enter:
 
    ```terminal
    $ amtool build -t framework
@@ -214,16 +187,14 @@ by running the following commands:
 $ sudo gem install cocoapods
 ```
 
-{{site.alert.note}} The default version of Ruby requires `sudo` to install the CocoaPods gem. If you
-are using a Ruby Version manager, you may need to run without `sudo`. {{site.alert.end}}
+**The default version of Ruby requires `sudo` to install the CocoaPods gem. If you are using a Ruby
+Version manager, you may need to run without `sudo`.**
 
 </li>
 
 <li markdown="1">
 
 Follow the Xcode signing flow to provision your project:
-
-{: type="a"}
 
 1. Open the default Xcode workspace in your project by
    running `open example/ios/ExtensionExample.xcworkspace` in a terminal window from your
@@ -237,9 +208,9 @@ Follow the Xcode signing flow to provision your project:
    device with your account, and creates and downloads a provisioning profile (if needed).
 
     * To start your first iOS development project, you might need to sign into Xcode with your Apple
-      ID. ![Xcode account add](docs/images/xcode-account.png){:.mw-100} Development and testing is
-      supported for any Apple ID. Enrolling in the Apple Developer Program is required to distribute
-      your app to the App Store. For details about membership types,
+      ID. ![Xcode account add](docs/images/xcode-account.png) Development and testing is supported
+      for any Apple ID. Enrolling in the Apple Developer Program is required to distribute your app
+      to the App Store. For details about membership types,
       see [Choosing a Membership](https://developer.apple.com/support/compare-memberships).
 
    <a name="trust"></a>
@@ -247,7 +218,7 @@ Follow the Xcode signing flow to provision your project:
       your Mac and the Development Certificate on that device. Select `Trust` in the dialog prompt
       when first connecting the iOS device to your Mac.
 
-      ![Trust Mac](docs/images/trust-computer.png){:.mw-100}
+      ![Trust Mac](docs/images/trust-computer.png)
 
       Then, go to the Settings app on the iOS device, select **General > Device Management**
       and trust your Certificate. For first time users, you may need to select
@@ -255,7 +226,7 @@ Follow the Xcode signing flow to provision your project:
 
     * If automatic signing fails in Xcode, verify that the project's
       **General > Identity > Bundle Identifier** value is unique.
-      ![Check the app's Bundle ID](docs/images/xcode-unique-bundle-id.png){:.mw-100}
+      ![Check the app's Bundle ID](docs/images/xcode-unique-bundle-id.png)
 
 </li>
 
@@ -265,3 +236,79 @@ Start your app by clicking the Run button in Xcode.
 
 </li>
 </ol>
+
+## Android setup
+
+**AgoraMarketplace relies on a full installation of Android Studio to supply its Android platform
+dependencies. However, you can write your AgoraMarketplace extensions in a number of editors; a
+later step discusses that.**
+
+### Install Android Studio
+
+1. Download and install [Android Studio](https://developer.android.com/studio).
+1. Start Android Studio, and go through the 'Android Studio Setup Wizard'. This installs the latest
+   Android SDK, Android SDK Command-line Tools, and Android SDK Build-Tools, which are required by
+   AgoraMarketplace when developing for Android.
+
+### Set up your Android device
+
+To prepare to run and test your AgoraMarketplace extension on an Android device, you need an Android
+device running Android 4.1 (API level 16) or higher.
+
+1. Enable **Developer options** and **USB debugging** on your device. Detailed instructions are
+   available in the
+   [Android documentation](https://developer.android.com/studio/debug/dev-options).
+1. Windows-only: Install the [Google USB Driver](https://developer.android.com/studio/run/win-usb).
+1. Using a USB cable, plug your phone into your computer. If prompted on your device, authorize your
+   computer to access your device.
+
+### Set up the Android emulator
+
+To prepare to run and test your AgoraMarketplace extension on the Android emulator, follow these
+steps:
+
+1. Enable
+   [VM acceleration](https://developer.android.com/studio/run/emulator-acceleration)
+   on your machine.
+1. Launch **Android Studio**, click the **AVD Manager**
+   icon, and select **Create Virtual Device...**
+    * In older versions of Android Studio, you should instead launch **Android Studio > Tools >
+      Android > AVD Manager** and select
+      **Create Virtual Device...**. (The **Android** submenu is only present when inside an Android
+      project.)
+    * If you do not have a project open, you can choose
+      **Configure > AVD Manager** and select **Create Virtual Device...**
+1. Choose a device definition and select **Next**.
+1. Select one or more system images for the Android versions you want to emulate, and select **
+   Next**. An _x86_ or _x86\_64_ image is recommended.
+1. Under Emulated Performance, select **Hardware - GLES 2.0** to enable
+   [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration).
+1. Verify the AVD configuration is correct, and select **Finish**.
+
+   For details on the above steps,
+   see [Managing AVDs](https://developer.android.com/studio/run/managing-avds).
+1. In Android Virtual Device Manager, click **Run** in the toolbar. The emulator starts up and
+   displays the default canvas for your selected OS version and device.
+
+### Create and run a simple AgoraMarketplace extension
+
+To create your first AgoraMarketplace extension and test your setup, follow these steps:
+
+1. Create a new AgoraMarketplace extension by running the following from the command line:
+
+   ```terminal
+   $ amtool create my_extension
+   ```
+
+2. A `my_extension` directory is created, containing AgoraMarketplace's starter app. Enter this
+   directory:
+
+   ```terminal
+   $ cd my_extension
+   ```
+
+3. To compile the extension, enter:
+
+   ```terminal
+   $ amtool build -t aar
+   ```
