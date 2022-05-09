@@ -31,9 +31,12 @@ requirements:
 
 ## Get the AgoraMarketplace SDK
 
+### macOS
+
 1. Download the following installation bundle to get the latest release of the AgoraMarketplace SDK:
 
-   [The latest version](https://github.com/AgoraLibrary/AgoraMarketplace/releases/latest)
+   [The template](https://github.com/AgoraLibrary/AgoraMarketplace/archive/refs/tags/v4.0.0-preview.6.zip)
+   [The executable](https://github.com/AgoraLibrary/AgoraMarketplace/releases/download/v4.0.0-preview.6/amtool_macos_v4.0.0-preview.6)
 
    For other release channels, and older builds, see
    the [SDK releases](https://github.com/AgoraLibrary/AgoraMarketplace/releases) page.
@@ -42,7 +45,8 @@ requirements:
 
    ```terminal
    $ cd ~/development
-   $ unzip ~/Downloads/amtool_vX.X.X.zip
+   $ unzip ~/Downloads/AgoraMarketplace-4.0.0-preview.6.zip
+   $ cp ~/Downloads/amtool_macos_v4.0.0-preview.6 ~/Downloads/AgoraMarketplace-4.0.0-preview.6/bin/amtool
    ```
 
 1. Add the `AgoraMarketplace` tool to your path:
@@ -54,11 +58,36 @@ requirements:
 
    This command sets your `PATH` variable for the
    _current_ terminal window only. To permanently add AgoraMarketplace to your path, see
-   [Update your path][].
+   [Update your path](#Path).
 
 You are now ready to run AgoraMarketplace commands!
 
-### Downloading straight from GitHub instead of using an archive
+### Windows
+
+1. Download the following installation bundle to get the latest release of the AgoraMarketplace SDK:
+
+   [The template](https://github.com/AgoraLibrary/AgoraMarketplace/archive/refs/tags/v4.0.0-preview.6.zip)
+   [The executable](https://github.com/AgoraLibrary/AgoraMarketplace/releases/download/v4.0.0-preview.6/amtool_windows_v4.0.0-preview.6)
+
+   For other release channels, and older builds, see
+   the [SDK releases](https://github.com/AgoraLibrary/AgoraMarketplace/releases) page.
+
+1. Extract the zip file and place the contained `AgoraMarketplace`
+   in the desired installation location for the AgoraMarketplace SDK
+   (for example, `C:\src\AgoraMarketplace`).
+
+1. Copy the executable file `amtool_windows_v4.0.0-preview.6` to `AgoraMarketplace\bin`.
+
+**Do not install AgoraMarketplace to a path that contains special characters or spaces.**
+
+**Do not install AgoraMarketplace in a directory like `C:\Program Files\` that requires elevated
+privileges.**
+
+You are now ready to run AgoraMarketplace commands in the AgoraMarketplace Console.
+
+## Downloading straight from GitHub instead of using an archive
+
+### macOS
 
 _This is only suggested for advanced use cases._
 
@@ -69,7 +98,22 @@ the stable branch:
 $ git clone https://github.com/AgoraLibrary/AgoraMarketplace.git -b main
 ```
 
-### Update your path
+### Windows
+
+If you don't want to install a fixed version of the installation bundle, you can skip steps 1 and 2.
+Instead, get the source code from
+the [AgoraMarketplace repo][https://github.com/AgoraLibrary/AgoraMarketplace.git] on GitHub, and
+change branches or tags as needed. For example:
+
+```batchfile
+C:\src>git clone https://github.com/AgoraLibrary/AgoraMarketplace.git -b main
+```
+
+<a name="Path"></a>
+
+## Update your path
+
+### macOS
 
 You can update your PATH variable for the current session at the command line, as shown
 in [Get the AgoraMarketplace SDK][]. You'll probably want to update this variable permanently, so
@@ -104,6 +148,22 @@ Typically you add a line to a file that is executed whenever you open a new wind
    ```terminal
    $ which amtool
    ```
+
+### Windows
+
+If you wish to run AgoraMarketplace commands in the regular Windows console, take these steps to add
+AgoraMarketplace to the `PATH` environment variable:
+
+* From the Start search bar, enter 'env' and select **Edit environment variables for your account**.
+* Under **User variables** check if there is an entry called **Path**:
+    * If the entry exists, append the full path to `AgoraMarketplace\bin` using
+      `;` as a separator from existing values.
+    * If the entry doesn't exist, create a new user variable named `Path` with the full path
+      to `AgoraMarketplace\bin` as its value.
+    * Create a new user variable named `AGORA_MARKETPLACE_ROOT` with the full path
+      to `AgoraMarketplace` as its value.
+
+You have to close and reopen any existing console windows for these changes to take effect.
 
 ## Platform setup
 
