@@ -1,6 +1,6 @@
 name: tool
 description: A simple command-line application.
-version: 1.0.0
+version: 4.0.0-preview.6
 # homepage: https://www.example.com
 
 environment:
