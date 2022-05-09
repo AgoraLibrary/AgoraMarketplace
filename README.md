@@ -17,6 +17,18 @@ requirements:
 
 ### Windows
 
+- **Operating Systems**: Windows 7 SP1 or later (64-bit), x86-64 based.
+- **Disk Space**: 1.64 GB (does not include disk space for IDE/tools).
+- **Tools**: AgoraMarketplace depends on these tools being available in your environment.
+    - [Windows PowerShell 5.0](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-windows-powershell)
+      or newer (this is pre-installed with Windows 10)
+    - [Git for Windows](https://git-scm.com/download/win) 2.x, with the
+      **Use Git from the Windows Command Prompt** option.
+
+      If Git for Windows is already installed, make sure you can run `git` commands from the command
+      prompt or PowerShell.
+    - AgoraMarketplace uses `CMake` for compile. [install `CMake`](https://cmake.org/download/).
+
 ## Get the AgoraMarketplace SDK
 
 1. Download the following installation bundle to get the latest release of the AgoraMarketplace SDK:
@@ -54,7 +66,7 @@ You can also use git directly instead of downloading the prepared archive. For e
 the stable branch:
 
 ```terminal
-$ git clone https://github.com/flutter/flutter.git -b stable
+$ git clone https://github.com/AgoraLibrary/AgoraMarketplace.git -b main
 ```
 
 ### Update your path
