@@ -45,7 +45,7 @@ requirements:
 ### Windows
 
 - **Operating Systems**: Windows 7 SP1 or later (64-bit), x86-64 based.
-- **Disk Space**: 1.64 GB (does not include disk space for IDE/tools).
+- **Disk Space**: 1 GB (does not include disk space for IDE/tools).
 - **Tools**: AgoraMarketplace depends on these tools being available in your environment.
     - [Windows PowerShell 5.0](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-windows-powershell)
       or newer (this is pre-installed with Windows 10)
