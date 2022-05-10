@@ -1,5 +1,7 @@
 # Agora Marketplace
 
+[TOC]
+
 ## System requirements
 
 To install and run AgoraMarketplace, your development environment must meet these minimum
