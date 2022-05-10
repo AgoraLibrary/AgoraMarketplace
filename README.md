@@ -1,6 +1,31 @@
 # Agora Marketplace
 
-[TOC]
+Table of Contents
+=================
+
+* [System requirements](#system-requirements)
+    * [macOS](#macos)
+    * [Windows](#windows)
+* [Get the AgoraMarketplace SDK](#get-the-agoramarketplace-sdk)
+    * [macOS](#macos-1)
+    * [Windows](#windows-1)
+* [Downloading straight from GitHub instead of using an archive](#downloading-straight-from-github-instead-of-using-an-archive)
+    * [macOS](#macos-2)
+    * [Windows](#windows-2)
+* [Update your path](#update-your-path)
+    * [macOS](#macos-3)
+    * [Windows](#windows-3)
+* [Platform setup](#platform-setup)
+* [iOS setup](#ios-setup)
+    * [Install Xcode](#install-xcode)
+    * [Set up the iOS simulator](#set-up-the-ios-simulator)
+    * [Create and run a simple AgoraMarketplace extension](#create-and-run-a-simple-agoramarketplace-extension)
+    * [Deploy to iOS devices](#deploy-to-ios-devices)
+* [Android setup](#android-setup)
+    * [Install Android Studio](#install-android-studio)
+    * [Set up your Android device](#set-up-your-android-device)
+    * [Set up the Android emulator](#set-up-the-android-emulator)
+    * [Create and run a simple AgoraMarketplace extension](#create-and-run-a-simple-agoramarketplace-extension-1)
 
 ## System requirements
 
